@@ -1,0 +1,9 @@
+  {
+      "version": "0.1.0",
+      "command": "nimble",
+      "args": ["test"],
+      "options": {
+          "cwd": "${workspaceRoot}"
+      },
+      "isShellCommand": true
+  }

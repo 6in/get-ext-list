@@ -1,0 +1,25 @@
+{
+  // Nim project file, if empty use current selected.
+  "nim.project": [],
+
+  // Optional test project.
+  "nim.test-project": "",
+
+  // Execute build task from tasks.json file on save.
+  "nim.buildOnSave": true,
+
+  // Nim build command (c, cpp, doc, etc)
+  "nim.buildCommand": "c",
+
+  // Output directory for run selected file command. The directory is relative to the workspace root.
+  "nim.runOutputDirectory": "",
+
+  // Check code by using 'nim check' on save.
+  "nim.lintOnSave": true,
+
+  // Enable verbose logging of nimsuggest to use profile directory.
+  "nim.logNimsuggest": false,
+
+  // Optional license text that will be inserted on nim file creation.
+  "nim.licenseString": ""
+}
