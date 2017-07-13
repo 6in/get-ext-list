@@ -6,55 +6,6 @@ import future
 type
   ExtInfo = tuple[count: int, size: BiggestInt]
 
-#[
-# 指定フォルダを再帰で探索し、(拡張子：個数)を返却する
-proc get_ext_list_impl(startPath:string): Table[string,int] =
-  result = initTable[string,int]()
-
-  # 再帰で探索
-  for f in startPath.walkDirRec :
-    if f.existsFile :
-      let (_,_,ext) = f.splitFile
-      var ext2 = ext
-      # 拡張子なしもカウントする
-      if ext == "" :
-        ext2 = "noext"
-      # 既に格納されているか確認
-      if result.contains(ext2) == false :
-        result[ext2] = 0
-      if ext2 == "noext" :
-        echo "NOEXT:" & f
-      # カウントアップ
-      result[ext2] += 1
-
-# 指定フォルダを再帰で探索し、(拡張子：個数,サイズ)を返却する
-proc get_ext_list_impl2(startPath:string): Table[string,seq[BiggestInt]] =
-  result = initTable[string,seq[BiggestInt]]()
-
-  # 再帰で探索
-  for f in startPath.walkDirRec :
-    if f.existsFile :
-      let (_,_,ext) = f.splitFile
-      var ext2 = ext
-      # 拡張子なしもカウントする
-      if ext == "" :
-        ext2 = "noext"
-      # 既に格納されているか確認
-      if result.contains(ext2) == false :
-        result[ext2] = @[]
-      if ext2 == "noext" :
-        echo "NOEXT:" & f
-      # ファイルサイズを取得
-      var len = getFileSize(f)      
-      result[ext2].add(len)
-
-proc sum(list:seq[BiggestInt]) : BiggestInt = 
-  result = 0
-  for x in list :
-    result += x
-
-]#
-
 proc get_ext_list_impl3(startPath:string): Table[string,ExtInfo] =
   result = initTable[string,ExtInfo]()
 

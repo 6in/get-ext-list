@@ -2,6 +2,13 @@
 
 フォルダを探索し、拡張子一覧を表示します。
 
+## ビルド
+
+以下のコマンドでビルドし、作成された ```bin/get_ext_list``` をPATHの通ったフォルダに配置して下さい
+```
+nimble install
+```
+
 ## 起動
 
 get_ext_list [option]
