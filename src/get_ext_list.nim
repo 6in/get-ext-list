@@ -24,7 +24,7 @@ proc get_ext_list_impl3(startPath:string,ignoreFolders:openArray[string]): Table
       if isSkip :
         break
 
-      var ext2 = ext
+      var ext2 = ext.toLower
       # 拡張子なしもカウントする
       if ext == "" :
         ext2 = "noext"
