@@ -11,11 +11,14 @@ nimble install
 
 ## 起動
 
-get_ext_list [option]
+get_ext_list [options] folder
 
-* option
+* --ignore
+  * 無視するフォルダのパターンを正規表現で指定します
+
+* folder
   * フォルダを指定します
-  * 省略した場合には、カレントディレクトリ配下を半作します
+  * 省略した場合には、カレントディレクトリ配下を探索します
 
 ## 出力結果
 

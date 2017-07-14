@@ -6,7 +6,7 @@
   "nim.test-project": "",
 
   // Execute build task from tasks.json file on save.
-  "nim.buildOnSave": true,
+  "nim.buildOnSave": false,
 
   // Nim build command (c, cpp, doc, etc)
   "nim.buildCommand": "c",

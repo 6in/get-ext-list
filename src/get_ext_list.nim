@@ -2,17 +2,28 @@ import os
 import tables
 import algorithm
 import future
+import parseopt2
+import strutils
 
 type
   ExtInfo = tuple[count: int, size: BiggestInt]
 
-proc get_ext_list_impl3(startPath:string): Table[string,ExtInfo] =
+proc get_ext_list_impl3(startPath:string,ignoreFolders:openArray[string]): Table[string,ExtInfo] =
   result = initTable[string,ExtInfo]()
 
   # 再帰で探索
   for f in startPath.walkDirRec :
     if f.existsFile :
-      let (_,_,ext) = f.splitFile
+      let (dir,_,ext) = f.splitFile
+      var isSkip = false
+      # 無視フォルダチェック
+      for x in ignoreFolders :
+        if dir.endswith(x) :
+          isSkip = true
+          break
+      if isSkip :
+        break
+
       var ext2 = ext
       # 拡張子なしもカウントする
       if ext == "" :
@@ -33,9 +44,22 @@ proc main(args:seq[string]):int =
   result = 1
   # 対象パスを特定(対象フォルダを１つだけ指定)
   # 対象パスがない場合は、カレントディレクトリを検索対象とする
-  let path =
-    if args.len == 1: args[0]
-    else: "."
+  var path:string = "."
+#    if args.len == 1: args[0]
+#    else: "."
+  var ignoreFolders:seq[string] = @[]
+  
+  for kind, key, val in getopt() :
+    case kind
+    of cmdArgument:
+      path = key
+    of cmdLongOption,cmdShortOption:
+      if key == "ignore" :
+        echo("ignore dir=",val)
+        for v in val.split(",") :
+          ignoreFolders.add v
+    of cmdEnd:
+      echo("")
 
   # ディレクトリチェック
   if path.existsDir == false :
@@ -46,7 +70,7 @@ proc main(args:seq[string]):int =
   # フォルダを探索し、拡張子と頻度を取得
   #let ret = get_ext_list_impl(path) 
   #let ret = get_ext_list_impl2(path) 
-  let ret = get_ext_list_impl3(path) 
+  let ret = get_ext_list_impl3(path,ignoreFolders) 
 
   # 内包表記で、キー一覧を取得
   let keys = lc[ k | (k <- ret.keys), string ]
