@@ -14,7 +14,12 @@ nimble install
 get_ext_list [options] folder
 
 * --ignore
-  * 無視するフォルダのパターンを正規表現で指定します
+  * 無視するフォルダを指定します
+  * 複数のフォルダを指定するとｋは、カンマ区切りでフォルダを列挙します
+```
+# .svnと.gitを無視する
+get_ext_list --ignore=.svn,.git /file/or/path
+```
 
 * folder
   * フォルダを指定します
